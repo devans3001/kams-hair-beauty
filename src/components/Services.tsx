@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
+import SplitReveal from "./SplitReveal";
+import ScissorsDivider from "./ScissorsDivider";
 import { SERVICES, BUSINESS } from "@/data/site";
 
 export default function Services() {
@@ -13,17 +15,21 @@ export default function Services() {
           <p className="text-xs font-black tracking-[0.3em] text-gold uppercase">
             Our menu
           </p>
-          <h2 className="mt-3 max-w-2xl font-display text-4xl font-black tracking-tight text-ink sm:text-6xl">
-            Services crafted for{" "}
-            <span className="italic text-gold">your</span> crown
-          </h2>
+          <SplitReveal
+            text="Services crafted for your crown"
+            accent="your"
+            accentClassName="italic text-gold"
+            className="mt-3 max-w-2xl font-display text-4xl font-black tracking-tight text-ink sm:text-6xl"
+          />
           <p className="mt-4 max-w-xl text-lg text-ink/65">
             Every appointment starts with a consultation — because great hair
             is never one-size-fits-all.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ScissorsDivider />
+
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => (
             <Reveal key={s.name} delay={(i % 3) * 0.12}>
               <motion.a

@@ -1,8 +1,14 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Star, Quote } from "lucide-react";
 import Reveal from "./Reveal";
+import SplitReveal from "./SplitReveal";
 import { TESTIMONIALS } from "@/data/site";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Card({ t }: { t: (typeof TESTIMONIALS)[number] }) {
   return (
@@ -30,28 +36,63 @@ function Card({ t }: { t: (typeof TESTIMONIALS)[number] }) {
 }
 
 export default function Testimonials() {
+  const ref = useRef<HTMLElement>(null);
+
+  // UI interaction: marquee skews with scroll velocity, eases back to straight
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const track = ".t-skew";
+      const proxy = { skew: 0 };
+      const clamp = gsap.utils.clamp(-10, 10);
+      ScrollTrigger.create({
+        onUpdate: (self) => {
+          const skew = clamp(self.getVelocity() / -300);
+          if (Math.abs(skew) > Math.abs(proxy.skew)) {
+            proxy.skew = skew;
+            gsap.to(proxy, {
+              skew: 0,
+              duration: 0.9,
+              ease: "power3",
+              overwrite: true,
+              onUpdate: () => gsap.set(track, { skewX: proxy.skew }),
+            });
+          }
+        },
+      });
+    }, ref);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="reviews" className="overflow-hidden bg-cream py-24 sm:py-32">
+    <section ref={ref} id="reviews" className="overflow-hidden bg-cream py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="text-center">
           <p className="text-xs font-black tracking-[0.3em] text-gold uppercase">
             755+ five-star reviews
           </p>
-          <h2 className="mx-auto mt-3 max-w-2xl font-display text-4xl font-black tracking-tight text-ink sm:text-6xl">
-            Mississauga keeps <span className="italic text-gold">talking</span>
-          </h2>
+          <SplitReveal
+            text="Mississauga keeps talking"
+            accent="talking"
+            accentClassName="italic text-gold"
+            className="mx-auto mt-3 max-w-2xl font-display text-4xl font-black tracking-tight text-ink sm:text-6xl"
+          />
         </Reveal>
       </div>
 
       <Reveal className="mt-14">
         <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div className="animate-marquee-slow flex shrink-0 gap-6 pr-6">
-            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
-              <Card key={i} t={t} />
-            ))}
+          <div className="t-skew will-change-transform">
+            <div className="animate-marquee-slow flex shrink-0 gap-6 pr-6">
+              {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+                <Card key={i} t={t} />
+              ))}
+            </div>
           </div>
         </div>
       </Reveal>
+      <p className="mt-6 text-center text-xs font-bold tracking-[0.25em] text-ink/35 uppercase">
+        Flick to scroll — watch the cards lean
+      </p>
     </section>
   );
 }

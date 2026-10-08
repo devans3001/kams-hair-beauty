@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Star, ArrowRight, ArrowDown, MapPin } from "lucide-react";
 import { BUSINESS } from "@/data/site";
 import { IMAGES } from "@/data/images";
+import Magnetic from "./Magnetic";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -126,23 +127,27 @@ export default function Hero() {
         </p>
 
         <div className="hero-fade mt-9 flex flex-wrap items-center justify-center gap-4">
-          <motion.a
-            href="#booking"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            className="group flex items-center gap-2 rounded-full bg-gold px-9 py-4 text-lg font-black text-ink shadow-[0_18px_60px_rgba(201,162,39,0.4)]"
-          >
-            Book your chair
-            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </motion.a>
-          <motion.a
-            href="#services"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            className="rounded-full border-2 border-cream/20 px-9 py-[14px] text-lg font-bold text-cream transition-colors hover:border-goldlight hover:text-goldlight"
-          >
-            View services
-          </motion.a>
+          <Magnetic>
+            <motion.a
+              href="#booking"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              className="group flex items-center gap-2 rounded-full bg-gold px-9 py-4 text-lg font-black text-ink shadow-[0_18px_60px_rgba(201,162,39,0.4)]"
+            >
+              Book your chair
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </motion.a>
+          </Magnetic>
+          <Magnetic strength={0.28}>
+            <motion.a
+              href="#services"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              className="rounded-full border-2 border-cream/20 px-9 py-[14px] text-lg font-bold text-cream transition-colors hover:border-goldlight hover:text-goldlight"
+            >
+              View services
+            </motion.a>
+          </Magnetic>
         </div>
 
         {/* arch image */}

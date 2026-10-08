@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Sparkles } from "lucide-react";
 import { BUSINESS, NAV_LINKS } from "@/data/site";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -16,7 +20,20 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(".nav-progress", {
+        scaleX: 1,
+        ease: "none",
+        scrollTrigger: { start: 0, end: "max", scrub: 0.3 },
+      });
+    });
+    return () => ctx.revert();
+  }, []);
+
   return (
+    <>
+    <div className="nav-progress fixed inset-x-0 top-0 z-[60] h-[3px] origin-left scale-x-0 bg-gradient-to-r from-gold via-goldlight to-gold" />
     <motion.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -103,5 +120,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </motion.header>
+    </>
   );
 }

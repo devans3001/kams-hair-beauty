@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Phone, Camera, ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
+import Magnetic from "./Magnetic";
 import { BUSINESS } from "@/data/site";
 
 export default function Booking() {
@@ -41,27 +42,31 @@ export default function Booking() {
         </Reveal>
 
         <Reveal delay={0.15} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <motion.a
-            href={BUSINESS.phoneHref}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            className="group flex items-center gap-3 rounded-full bg-gold px-9 py-4 text-lg font-black text-ink shadow-[0_16px_50px_rgba(201,162,39,0.35)]"
-          >
-            <Phone className="h-5 w-5 transition-transform group-hover:rotate-12" />
-            {BUSINESS.phone}
-          </motion.a>
-          <motion.a
-            href={BUSINESS.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            className="flex items-center gap-3 rounded-full border-2 border-cream/25 px-9 py-4 text-lg font-bold text-cream transition-colors hover:border-goldlight hover:text-goldlight"
-          >
-            <Camera className="h-5 w-5" />
-            DM us on Instagram
-            <ArrowRight className="h-5 w-5" />
-          </motion.a>
+          <Magnetic>
+            <motion.a
+              href={BUSINESS.phoneHref}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              className="group flex items-center gap-3 rounded-full bg-gold px-9 py-4 text-lg font-black text-ink shadow-[0_16px_50px_rgba(201,162,39,0.35)]"
+            >
+              <Phone className="h-5 w-5 transition-transform group-hover:rotate-12" />
+              {BUSINESS.phone}
+            </motion.a>
+          </Magnetic>
+          <Magnetic strength={0.28}>
+            <motion.a
+              href={BUSINESS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              className="flex items-center gap-3 rounded-full border-2 border-cream/25 px-9 py-4 text-lg font-bold text-cream transition-colors hover:border-goldlight hover:text-goldlight"
+            >
+              <Camera className="h-5 w-5" />
+              DM us on Instagram
+              <ArrowRight className="h-5 w-5" />
+            </motion.a>
+          </Magnetic>
         </Reveal>
 
         <Reveal delay={0.25}>
