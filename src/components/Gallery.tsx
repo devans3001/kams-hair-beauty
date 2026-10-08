@@ -1,23 +1,70 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "./Reveal";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const SHOTS = [
-  { src: "/images/gallery-1.jpg", label: "Knotless braids", span: "tall" },
-  { src: "/images/gallery-2.jpg", label: "Silk press finish", span: "short" },
-  { src: "/images/gallery-3.jpg", label: "Goddess locs", span: "tall" },
-  { src: "/images/gallery-4.jpg", label: "Wig install", span: "short" },
+  { src: "/images/gallery-1.jpg", label: "Knotless braids" },
+  { src: "/images/gallery-2.jpg", label: "Silk press finish" },
+  { src: "/images/gallery-3.jpg", label: "Goddess locs" },
+  { src: "/images/gallery-4.jpg", label: "Wig install" },
 ];
 
 export default function Gallery() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const x = useTransform(scrollYProgress, [0, 1], ["4%", "-14%"]);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // cinematic clip reveal per card
+      gsap.utils.toArray<HTMLElement>(".g-card").forEach((card) => {
+        gsap.from(card, {
+          clipPath: "inset(12% 8% 12% 8% round 24px)",
+          scale: 0.94,
+          ease: "none",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 92%",
+            end: "top 42%",
+            scrub: 0.8,
+          },
+        });
+        // inner parallax
+        const img = card.querySelector(".g-img");
+        if (img) {
+          gsap.fromTo(
+            img,
+            { yPercent: -10 },
+            {
+              yPercent: 10,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            }
+          );
+        }
+      });
+      // whole row drifts against scroll
+      gsap.to(".g-row", {
+        xPercent: -10,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+    }, ref);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section ref={ref} id="gallery" className="overflow-hidden bg-sand py-24 sm:py-32">
@@ -32,32 +79,28 @@ export default function Gallery() {
         </Reveal>
       </div>
 
-      <motion.div style={{ x }} className="mt-14 flex w-max gap-6 px-5 sm:px-8">
+      <div className="g-row mt-14 flex w-max gap-6 px-5 sm:px-8">
         {SHOTS.map((s, i) => (
-          <motion.figure
+          <figure
             key={s.src}
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.8, delay: i * 0.1 }}
-            whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 1 : -1 }}
-            className={`group relative w-64 shrink-0 overflow-hidden rounded-3xl shadow-xl sm:w-80 ${
-              s.span === "tall" ? "mt-0" : "mt-12"
+            className={`g-card group relative w-64 shrink-0 overflow-hidden rounded-3xl shadow-xl sm:w-80 ${
+              i % 2 === 1 ? "mt-12" : ""
             }`}
           >
-            <img
-              src={s.src}
-              alt={s.label}
-              className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-80" />
+            <div className="overflow-hidden">
+              <img
+                src={s.src}
+                alt={s.label}
+                className="g-img aspect-[3/4] w-full scale-125 object-cover"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
             <figcaption className="absolute bottom-5 left-5 font-display text-xl font-bold text-cream">
               {s.label}
             </figcaption>
-          </motion.figure>
+          </figure>
         ))}
 
-        {/* end card */}
         <div className="grid w-64 shrink-0 place-items-center sm:w-80">
           <a
             href="https://www.instagram.com/kams_hair_and_beauty"
@@ -73,7 +116,7 @@ export default function Gallery() {
             </p>
           </a>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -1,7 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useInView } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -39,12 +43,47 @@ const STATS = [
 ];
 
 export default function Stats() {
+  const ref = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(".stats-drift", {
+        xPercent: -22,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+    }, ref);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative overflow-hidden bg-ink py-20">
-      <div className="pointer-events-none absolute inset-0 opacity-40">
+    <section ref={ref} className="relative overflow-hidden bg-ink py-24">
+      {/* drifting review wall */}
+      <div className="pointer-events-none absolute inset-0 flex items-center overflow-hidden opacity-25">
+        <div className="stats-drift flex w-max shrink-0 items-center gap-10 whitespace-nowrap">
+          {Array.from({ length: 2 }).flatMap((_, dup) =>
+            Array.from({ length: 4 }).map((__, i) => (
+              <span
+                key={`${dup}-${i}`}
+                className="text-stroke-gold font-display text-[11rem] font-black leading-none"
+              >
+                755+ FIVE STARS ✦
+              </span>
+            ))
+          )}
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/4 top-0 h-72 w-72 rounded-full bg-gold/20 blur-3xl" />
         <div className="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-blush/10 blur-3xl" />
       </div>
+
       <div className="relative mx-auto grid max-w-6xl grid-cols-2 gap-10 px-5 sm:px-8 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <motion.div
@@ -56,11 +95,7 @@ export default function Stats() {
             className="text-center"
           >
             <p className="font-display text-5xl font-black text-goldlight sm:text-6xl">
-              {s.decimals ? (
-                "5.0"
-              ) : (
-                <Counter to={s.value} suffix={s.suffix} />
-              )}
+              {s.decimals ? "5.0" : <Counter to={s.value} suffix={s.suffix} />}
             </p>
             <p className="mt-2 text-sm font-bold tracking-widest text-cream/60 uppercase">
               {s.label}
