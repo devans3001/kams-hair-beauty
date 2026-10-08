@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import { Star, ArrowRight, ArrowDown, MapPin } from "lucide-react";
 import { BUSINESS } from "@/data/site";
+import { IMAGES } from "@/data/images";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -148,7 +149,7 @@ export default function Hero() {
         <div className="relative mx-auto mt-16 max-w-4xl">
           <div className="hero-img-wrap relative overflow-hidden rounded-t-[999px] rounded-b-[2.5rem] shadow-[0_50px_120px_rgba(0,0,0,0.55)]">
             <img
-              src="/images/hero.jpg"
+              src={IMAGES.hero}
               alt="Stylist finishing a flawless silk press at Kams Hair & Beauty"
               className="hero-img aspect-[16/10] w-full scale-110 object-cover"
             />
