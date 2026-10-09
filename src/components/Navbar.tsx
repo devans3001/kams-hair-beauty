@@ -49,7 +49,11 @@ export default function Navbar() {
           <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-goldlight">
             <Sparkles className="h-5 w-5" />
           </span>
-          <span className="font-display text-xl font-bold tracking-tight text-ink">
+          <span
+            className={`font-display text-xl font-bold tracking-tight transition-colors duration-500 ${
+              scrolled ? "text-ink" : "text-cream"
+            }`}
+          >
             Kams <span className="text-gold">Hair &amp; Beauty</span>
           </span>
         </a>
@@ -59,7 +63,11 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="group relative text-sm font-semibold tracking-wide text-ink/70 transition-colors hover:text-ink"
+              className={`group relative text-sm font-semibold tracking-wide transition-colors duration-500 ${
+                scrolled
+                  ? "text-ink/70 hover:text-ink"
+                  : "text-cream/75 hover:text-cream"
+              }`}
             >
               {l.label}
               <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
@@ -78,7 +86,9 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="grid h-10 w-10 place-items-center rounded-full bg-ink/5 md:hidden"
+          className={`grid h-10 w-10 place-items-center rounded-full transition-colors duration-500 md:hidden ${
+            scrolled ? "bg-ink/5 text-ink" : "bg-cream/10 text-cream"
+          }`}
           aria-label="Toggle menu"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

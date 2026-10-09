@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
 import SplitReveal from "./SplitReveal";
-import ScissorsDivider from "./ScissorsDivider";
+import Steps from "./Steps";
 import { SERVICES, BUSINESS } from "@/data/site";
 
 export default function Services() {
@@ -27,9 +27,9 @@ export default function Services() {
           </p>
         </Reveal>
 
-        <ScissorsDivider />
+        <Steps />
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => (
             <Reveal key={s.name} delay={(i % 3) * 0.12}>
               <motion.a
