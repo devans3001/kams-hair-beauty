@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, Phone, Camera, Clock, Sparkles, Navigation } from "lucide-react";
+import { MapPin, Phone, Camera, Clock, Scissors, Navigation } from "lucide-react";
 import Reveal from "./Reveal";
 import { BUSINESS, NAV_LINKS } from "@/data/site";
 
@@ -12,7 +12,7 @@ export default function Footer() {
           <Reveal>
             <div className="flex items-center gap-2.5">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-gold text-ink">
-                <Sparkles className="h-5 w-5" />
+                <Scissors className="h-5 w-5" />
               </span>
               <span className="font-display text-2xl font-bold">
                 Kams <span className="text-goldlight">Hair &amp; Beauty</span>
