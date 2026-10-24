@@ -1,22 +1,22 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Stats from "@/components/Stats";
-import Services from "@/components/Services";
-import Gallery from "@/components/Gallery";
-import Testimonials from "@/components/Testimonials";
-import Booking from "@/components/Booking";
+import BookSection from "@/components/BookSection";
+import ChairIndex from "@/components/ChairIndex";
 import Footer from "@/components/Footer";
+import GlassPass from "@/components/GlassPass";
+import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
+import Nav from "@/components/Nav";
+import RevealWall from "@/components/RevealWall";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <Navbar />
+      <Nav />
       <Hero />
-      <Stats />
-      <Services />
-      <Gallery />
-      <Testimonials />
-      <Booking />
+      <Marquee />
+      <GlassPass />
+      <ChairIndex />
+      <RevealWall />
+      <BookSection />
       <Footer />
     </main>
   );

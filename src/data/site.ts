@@ -1,101 +1,93 @@
 export const BUSINESS = {
   name: "Kams Hair & Beauty",
-  tagline: "Mississauga's 5-star hair sanctuary",
   phone: "(647) 572-8845",
   phoneHref: "tel:+16475728845",
-  address: "650 Matheson Blvd W, Unit 29, Mississauga, ON",
+  address: "Inside PROBEAUTY, 650 Matheson Blvd W, Ste 29, Mississauga, ON L5R 3T2",
+  area: "Heartland — Mavis × Matheson",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kams+Hair+%26+Beauty+Mississauga",
   instagram: "https://www.instagram.com/kams_hair_and_beauty",
+  fresha:
+    "https://www.fresha.com/lvp/kams-hair-beauty-matheson-boulevard-west-mississauga-VEg8ll",
   rating: "5.0",
-  reviewCount: "755+",
-  hours: [
-    { day: "Monday – Friday", time: "9:00 AM – 7:00 PM" },
-    { day: "Saturday", time: "8:00 AM – 6:00 PM" },
-    { day: "Sunday", time: "Closed" },
-  ],
+  reviewCount: "800",
+  hoursLine: "Open 7 days · 10 AM – 9 PM",
 };
 
-export const SERVICES = [
+export type ServiceGroup = {
+  no: string;
+  name: string;
+  blurb: string;
+  note: string;
+  items: string[];
+};
+
+/** Real services, confirmed from their Fresha page, Google listing and their
+ * own promos (Oct 2026). Kams publishes NO prices — none are shown. */
+export const GROUPS: ServiceGroup[] = [
   {
-    name: "Knotless Box Braids",
-    desc: "Lightweight, painless braids in any length — our most requested style.",
-    price: "from $180",
-    tag: "Most loved",
+    no: "01",
+    name: "Colour",
+    blurb: "Painted, blended, polished",
+    note: "First visit — 35% off highlights & root touch-up",
+    items: ["Balayage", "Highlights with Olaplex", "Global Colour", "Root Touch-Up · ammonia-free"],
   },
   {
-    name: "Silk Press",
-    desc: "Bone-straight, mirror-shine press with deep conditioning treatment.",
-    price: "from $90",
-    tag: "Signature",
+    no: "02",
+    name: "Smoothing",
+    blurb: "The glass-hair treatments",
+    note: "FELP-certified — Keratin, Nanoplastia & Hair Botox specialist",
+    items: ["Nanoplastia", "Keratin Treatment", "Hair Botox"],
   },
   {
-    name: "Sew-In Weave",
-    desc: "Flawless installs with natural leave-out or full closure.",
-    price: "from $160",
-    tag: null,
+    no: "03",
+    name: "The Chair",
+    blurb: "Cuts, fades & the finish",
+    note: "First visit — 35% off haircuts",
+    items: ["Cut + Blowdry", "Scissor Cut", "Zero Fade", "Beard Trim · blade", "Children's Haircut"],
   },
   {
-    name: "Wig Install & Styling",
-    desc: "Glueless or frontal installs, melted lace, styled to perfection.",
-    price: "from $120",
-    tag: null,
-  },
-  {
-    name: "Faux Locs & Goddess Locs",
-    desc: "Boho texture, lightweight feel, weeks of effortless wear.",
-    price: "from $200",
-    tag: null,
-  },
-  {
-    name: "Natural Hair Care",
-    desc: "Steam treatments, trims, twists and protective styling for naturals.",
-    price: "from $70",
-    tag: null,
+    no: "04",
+    name: "+ Also",
+    blurb: "The rest of the menu",
+    note: "Unisex — men, women & kids",
+    items: ["Perm", "Permanent Straightening", "Blow Dry", "Facial"],
   },
 ];
 
-export const TESTIMONIALS = [
+export type Review = { quote: string; name: string };
+
+/** Verbatim Google reviews (via Birdeye + Chamber of Commerce mirror), Oct 2026. */
+export const REVIEWS: Review[] = [
   {
     quote:
-      "Best braids I've ever had. Neat, lightweight, and they lasted two full months. Kams is a true artist.",
-    name: "Amara O.",
-    detail: "Knotless braids",
+      "He really took his time to make sure everything was done properly and didn't rush the haircut. Friendly, professional, and clearly takes pride in his work.",
+    name: "Google review",
   },
   {
     quote:
-      "My silk press came out like glass. I've been to salons all over the GTA — nobody does it like this.",
-    name: "Danielle R.",
-    detail: "Silk press",
+      "So happy with my new layered haircut! Kamal did an amazing job and made sure the style suited me well. He was patient, attentive, and made the whole experience comfortable.",
+    name: "Google review",
   },
   {
     quote:
-      "From the moment you walk in you feel cared for. My install looked so natural my own mother couldn't tell.",
-    name: "Priya S.",
-    detail: "Sew-in weave",
+      "I was delighted that Kam knew what I wanted and gave expert advice with regards to hair colour, the style that suits me.",
+    name: "Google review",
   },
   {
     quote:
-      "Punctual, professional, and the salon is spotless. My locs get compliments everywhere I go.",
-    name: "Tasha M.",
-    detail: "Faux locs",
+      "Been here twice for a mens haircut. Kamal is very good at what he does. Takes the time and effort to make sure that the customer is happy.",
+    name: "Levin Tom Thomas — Google review",
   },
   {
     quote:
-      "Finally a salon that truly understands natural hair. My curls have never been healthier.",
-    name: "Blessing A.",
-    detail: "Natural hair care",
-  },
-  {
-    quote:
-      "Worth every penny. I drive 40 minutes past other salons to get here — that should tell you everything.",
-    name: "Jasmine K.",
-    detail: "Wig install",
+      "I've been here for the second time now, and I'm just as happy with my hair! Kam really takes his time and pays attention to every detail.",
+    name: "Google review",
   },
 ];
 
 export const NAV_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Visit Us", href: "#visit" },
+  { label: "The Chair Index", href: "#index" },
+  { label: "Glass Pass", href: "#glass" },
+  { label: "The Wall", href: "#wall" },
+  { label: "Book", href: "#book" },
 ];

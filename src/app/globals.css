@@ -1,66 +1,53 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-
-  --color-cream: #faf6ee;
-  --color-sand: #f1e8d8;
-  --color-ink: #171310;
-  --color-espresso: #241c15;
-  --color-gold: #c9a227;
-  --color-goldlight: #e8c766;
-  --color-blush: #e9b8a6;
-
-  --animate-marquee: marquee 28s linear infinite;
-  --animate-marquee-slow: marquee 60s linear infinite;
-  --animate-float: float 7s ease-in-out infinite;
-  --animate-spin-slower: spin 24s linear infinite;
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-16px);
-    }
-  }
+  --color-ink: #0a0a0b;
+  --color-ink-2: #050506;
+  --color-bone: #f4f4f2;
+  --color-grey: #9a9aa0;
+  --color-sky: #1b9bd8;
+  --color-sun: #ffce1f;
+  --font-display: "Syne", sans-serif;
+  --font-body: "Archivo", sans-serif;
 }
 
 html {
-  scroll-behavior: smooth;
+  background: var(--color-ink-2);
 }
 
 body {
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-body);
   overflow-x: hidden;
 }
 
 ::selection {
-  background: #c9a227;
-  color: #171310;
+  background: var(--color-sun);
+  color: var(--color-ink-2);
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #faf6ee;
-}
-::-webkit-scrollbar-thumb {
-  background: #c9a227;
-  border-radius: 8px;
+.label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
 }
 
-.text-stroke-gold {
-  -webkit-text-stroke: 1px rgba(201, 162, 39, 0.6);
-  color: transparent;
+.hairline {
+  border-color: color-mix(in srgb, var(--color-bone) 16%, transparent);
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-x 26s linear infinite;
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-130%) skewX(-18deg); }
+  100% { transform: translateX(240%) skewX(-18deg); }
 }

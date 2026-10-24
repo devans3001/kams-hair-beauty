@@ -1,31 +1,22 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Manrope } from "next/font/google";
+import { Archivo, Syne } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
 
-const display = Playfair_Display({
-  variable: "--font-display",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const sans = Manrope({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
+const syne = Syne({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-display" });
+const archivo = Archivo({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body" });
 
 export const metadata: Metadata = {
-  title: "Kams Hair & Beauty | Luxury Hair Salon in Mississauga",
+  title: "Kams Hair & Beauty — Heartland, Mississauga",
   description:
-    "Mississauga's 5-star rated hair salon. Knotless braids, silk press, sew-ins, wig installs & natural hair care. 755+ five-star Google reviews. Book your appointment today.",
+    "Kams Hair & Beauty, inside PROBEAUTY, Heartland Mississauga. Balayage, keratin, nanoplastia, hair botox, precision cuts & fades by Kamal. 5.0 stars across 800 Google reviews. Appointment only — book on Fresha or call (647) 572-8845.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${display.variable} ${sans.variable} bg-cream text-ink font-sans antialiased`}
-      >
+    <html lang="en" className={`${syne.variable} ${archivo.variable}`}>
+      <body>
+        <SmoothScroll />
         {children}
       </body>
     </html>
