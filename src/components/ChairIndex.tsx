@@ -23,15 +23,15 @@ export default function ChairIndex() {
         {GROUPS.map((g, gi) => (
           <div key={g.no} className="border-t hairline">
             <div className="mx-auto grid max-w-[1440px] gap-8 px-5 py-12 md:grid-cols-[1fr_1.2fr] md:px-10 md:py-16">
-              <Reveal>
+              <Reveal className="min-w-0">
                 <p className="font-display text-lg font-bold text-sky">{g.no}</p>
-                <h3 className="mt-2 font-display text-5xl font-extrabold uppercase md:text-6xl">{g.name}</h3>
+                <h3 className="mt-2 font-display text-[clamp(1.75rem,8.2vw,3rem)] font-extrabold uppercase md:text-6xl">{g.name}</h3>
                 <p className="label mt-3 text-bone/55">{g.blurb}</p>
-                <p className="mt-5 inline-block bg-sun px-3 py-1.5 font-display text-[0.8rem] font-bold text-ink-2 uppercase">
+                <p className="mt-5 inline-block max-w-full bg-sun px-3 py-1.5 font-display text-[0.8rem] font-bold text-ink-2 uppercase">
                   {g.note}
                 </p>
               </Reveal>
-              <div>
+              <div className="min-w-0">
                 {g.items.map((item, i) => (
                   <Reveal key={item} delay={i * 60}>
                     <a

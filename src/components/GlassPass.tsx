@@ -79,8 +79,8 @@ export default function GlassPass() {
       </div>
 
       <div ref={wrapRef} className="relative" style={{ height: reduced ? "auto" : "270vh" }}>
-        <div className={`${reduced ? "relative" : "sticky top-0"} flex h-screen items-center justify-center overflow-hidden`}>
-          <div className="relative aspect-[3/2] w-full max-w-[1180px]">
+        <div className={`${reduced ? "relative" : "sticky top-0"} flex h-dvh items-center justify-center overflow-hidden`}>
+          <div className={reduced ? "relative aspect-[3/2] w-full max-w-[1180px]" : "relative h-full w-full md:aspect-[3/2] md:h-auto md:max-w-[1180px]"}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={imgRef}
@@ -90,7 +90,7 @@ export default function GlassPass() {
               draggable={false}
             />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,6,0.35),transparent_30%,transparent_70%,rgba(5,5,6,0.45))]" />
-            <div className="absolute top-5 left-5 md:top-8 md:left-8">
+            <div className="absolute top-24 left-5 md:top-8 md:left-8">
               <p className="label text-bone/85">{interacted || reduced ? "Section by section" : "Scroll — work the iron"}</p>
             </div>
             <div className="absolute right-5 bottom-5 text-right md:right-8 md:bottom-8">
