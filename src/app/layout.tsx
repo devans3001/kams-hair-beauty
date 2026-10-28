@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Syne } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import { Analytics } from "@vercel/analytics/next";
 
 const syne = Syne({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-display" });
 const archivo = Archivo({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body" });
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <SmoothScroll />
         {children}
+        <Analytics />
       </body>
     </html>
   );
